@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVerse - Your Ultimate Gaming Destination</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #8a2be2;
+            --secondary: #ff6b00;
+            --dark: #121212;
+            --light: #f5f5f5;
+            --gray: #2d2d2d;
+            --card-bg: #1e1e1e;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(90deg, #0f0c29, #302b63, #24243e);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .logo i {
+            color: var(--secondary);
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--secondary);
+            background: rgba(255, 107, 0, 0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .search-bar {
+            display: flex;
+            background: var(--gray);
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            padding: 10px 15px;
+            color: white;
+            width: 200px;
+            outline: none;
+        }
+
+        .search-bar button {
+            background: var(--primary);
+            border: none;
+            padding: 10px 15px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-actions a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 15px;
+        }
+
+        .user-actions a:hover {
+            color: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: #ff8c00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+        }
+
+        /* Featured Games */
+        .section-title {
+            text-align: center;
+            padding: 40px 0 20px;
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px 5%;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .game-card:hover .game-image img {
+            transform: scale(1.1);
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .rating {
+            color: gold;
+        }
+
+        .platforms {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .platform {
+            background: var(--gray);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 40px 5%;
+            background: var(--gray);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .news-image {
+            width: 150px;
+            flex-shrink: 0;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 20px;
+        }
+
+        .news-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .news-date {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 50px 5% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gray);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .search-bar {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .hero {
+                height: 350px;
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin: 0 auto;
+            }
+            
+            .hero-buttons {
+                display: flex;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                height: 300px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .news-card {
+                flex-direction: column;
+            }
+            
+            .news-image {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <h1>GAMEVERSE</h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Games</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">Guides</a></li>
+                <li><a href="#">Community</a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-actions">
+            <div class="search-bar">
+                <input type="text" placeholder="Search games, news...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="user-actions">
+                <a href="#"><i class="fas fa-user"></i> Login</a>
+                <a href="#"><i class="fas fa-sign-in-alt"></i> Register</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Level Up Your Gaming Experience</h2>
+            <p>Discover the latest games, reviews, and community discussions in one place. Join thousands of gamers worldwide.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn">Explore Games</a>
+                <a href="#" class="btn btn-secondary">Latest News</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Games -->
+    <section class="featured-games">
+        <h2 class="section-title">Featured Games</h2>
+        <div class="games-container">
+            <!-- Game Card 1 -->
+            <div class="game-card">
+                <div class="game-image">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cyberpunk 2077">
+                </div>
+                <div class="game-info">
+                    <h3>Cyberpunk 2077</h3>
+                    <div class="game-meta">
+                        <span>Action RPG</span>
+                        <span class="rating"><i class="fas fa-star"></i> 4.2</span>
+                    </div>
+                    <p>Open-world RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.</p>
+                    <div class="platforms">
+                        <span class="platform">PC</span>
+                        <span class="platform">PS5</span>
+                        <span class="platform">Xbox</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card 2 -->
+            <div class="game-card">
+                <div class="game-image">
+                    <img src="https://images.unsplash.com/photo-1551103782-8ab0493f16b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Elden Ring">
+                </div>
+                <div class="game-info">
+                    <h3>Elden Ring</h3>
+                    <div class="game-meta">
+                        <span>Action RPG</span>
+                        <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                    </div>
+                    <p>Journey through the Lands Between, a new fantasy world created by Hidetaka Miyazaki and George R. R. Martin.</p>
+                    <div class="platforms">
+                        <span class="platform">PC</span>
+                        <span class="platform">PS4</span>
+                        <span class="platform">PS5</span>
+                        <span class="platform">Xbox</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card 3 -->
+            <div class="game-card">
+                <div class="game-image">
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Valorant">
+                </div>
+                <div class="game-info">
+                    <h3>Valorant</h3>
+                    <div class="game-meta">
+                        <span>Tactical Shooter</span>
+                        <span class="rating"><i class="fas fa-star"></i> 4.3</span>
+                    </div>
+                    <p>A 5v5 character-based tactical shooter where precise gunplay meets unique agent abilities.</p>
+                    <div class="platforms">
+                        <span class="platform">PC</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Game Card 4 -->
+            <div class="game-card">
+                <div class="game-image">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="The Witcher 3">
+                </div>
+                <div class="game-info">
+                    <h3>The Witcher 3</h3>
+                    <div class="game-meta">
+                        <span>Action RPG</span>
+                        <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                    </div>
+                    <p>Become a professional monster slayer and embark on the final chapter of Geralt's journey.</p>
+                    <div class="platforms">
+                        <span class="platform">PC</span>
+                        <span class="platform">PS4</span>
+                        <span class="platform">PS5</span>
+                        <span class="platform">Xbox</span>
+                        <span class="platform">Switch</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <h2 class="section-title">Latest Gaming News</h2>
+        <div class="news-grid">
+            <!-- News Card 1 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="News Image">
+                </div>
+                <div class="news-content">
+                    <h3>New Valorant Agent Revealed at Champions 2023</h3>
+                    <div class="news-date">October 15, 2023</div>
+                    <p>Riot Games unveiled the next agent coming to VALORANT at their annual championship event.</p>
+                </div>
+            </div>
+            
+            <!-- News Card 2 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="News Image">
+                </div>
+                <div class="news-content">
+                    <h3>PlayStation 5 Pro Rumors: What We Know So Far</h3>
+                    <div class="news-date">October 12, 2023</div>
+                    <p>Sony's next-gen console might arrive sooner than expected according to recent industry reports.</p>
+                </div>
+            </div>
+            
+            <!-- News Card 3 -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="News Image">
+                </div>
+                <div class="news-content">
+                    <h3>The Witcher Remake Development Update</h3>
+                    <div class="news-date">October 10, 2023</div>
+                    <p>CD Projekt Red shares new details about their ambitious remake of the classic RPG.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>GameVerse</h3>
+                <p>Your ultimate destination for gaming news, reviews, and community discussions. Stay updated with the latest in the gaming world.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Reviews</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Platforms</h3>
+                <ul>
+                    <li><a href="#">PC Games</a></li>
+                    <li><a href="#">PlayStation 5</a></li>
+                    <li><a href="#">Xbox Series X/S</a></li>
+                    <li><a href="#">Nintendo Switch</a></li>
+                    <li><a href="#">Mobile Gaming</a></li>
+                    <li><a href="#">VR Gaming</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get the latest gaming news and updates delivered to your inbox.</p>
+                <div class="search-bar" style="margin-top: 15px;">
+                    <input type="email" placeholder="Your email address">
+                    <button><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 GameVerse. All rights reserved. This is an original creation and not affiliated with any existing gaming websites.
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effect to game cards
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Search functionality
+            const searchButton = document.querySelector('.search-bar button');
+            const searchInput = document.querySelector('.search-bar input');
+            
+            searchButton.addEventListener('click', function() {
+                if(searchInput.value.trim() !== '') {
+                    alert(`Searching for: ${searchInput.value}`);
+                    searchInput.value = '';
+                }
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if(e.key === 'Enter' && searchInput.value.trim() !== '') {
+                    alert(`Searching for: ${searchInput.value}`);
+                    searchInput.value = '';
+                }
+            });
+            
+            // Newsletter subscription
+            const newsletterButton = document.querySelector('.footer-column .search-bar button');
+            const newsletterInput = document.querySelector('.footer-column .search-bar input');
+            
+            newsletterButton.addEventListener('click', function() {
+                if(newsletterInput.value.trim() !== '') {
+                    alert(`Thank you for subscribing with: ${newsletterInput.value}`);
+                    newsletterInput.value = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
